@@ -1,0 +1,9 @@
+@mixin transition($property) {
+    transition: $property 0.3s ease-in-out;
+}
+
+@mixin responsive($breakpoint) {
+    @media (max-width: $breakpoint) {
+        @content;
+    }
+}

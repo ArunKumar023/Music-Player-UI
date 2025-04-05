@@ -1,0 +1,58 @@
+[
+    {
+        "title": "Starboy",
+        "thumbnail": "https://picsum.photos/150/150?random=1",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        "duration": "4:16",
+        "artistName": "The Weeknd"
+    },
+    {
+        "title": "Demons",
+        "thumbnail": "https://picsum.photos/150/150?random=2",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        "duration": "5:24",
+        "artistName": "Imagine Dragons"
+    },
+    {
+        "title": "Mouth of the river",
+        "thumbnail": "https://picsum.photos/150/150?random=3",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        "duration": "6:23",
+        "artistName": "Imagine Dragons"
+    },
+    {
+        "title": "Ghost Stories",
+        "thumbnail": "https://picsum.photos/150/150?random=4",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+        "duration": "3:10",
+        "artistName": "Coldplay"
+    },
+    {
+        "title": "Sparks",
+        "thumbnail": "https://picsum.photos/150/150?random=5",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+        "duration": "4:23",
+        "artistName": "Coldplay"
+    },
+    {
+        "title": "Viva La Vida",
+        "thumbnail": "https://picsum.photos/150/150?random=6",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+        "duration": "5:32",
+        "artistName": "Coldplay"
+    },
+    {
+        "title": "Hymn for the weekend",
+        "thumbnail": "https://picsum.photos/150/150?random=7",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SongHelix-Song-7.mp3",
+        "duration": "2:23",
+        "artistName": "Coldplay"
+    },
+    {
+        "title": "Pain",
+        "thumbnail": "https://picsum.photos/150/150?random=8",
+        "musicUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+        "duration": "3:12",
+        "artistName": "Ryan Jones"
+    }
+]
