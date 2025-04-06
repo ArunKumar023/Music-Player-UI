@@ -1,0 +1,246 @@
+@import 'variables';
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: background 0.5s ease;
+  overflow: hidden;
+  background: $background;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+    height: 100vh;
+  }
+
+  .sidebar {
+    background: $secondary;
+    padding: $spacing-md;
+    transition: transform 0.3s ease;
+    width: 250px;
+    position: fixed;
+    height: 100%;
+    z-index: 1000;
+    color: $text;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    @media (max-width: 991px) {
+      transform: translateX(-100%);
+      &.open {
+        transform: translateX(0);
+      }
+    }
+
+    @media (min-width: 992px) {
+      position: static;
+      width: 20%;
+      transform: translateX(0);
+      background: transparent;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      margin-bottom: $spacing-lg;
+      color: $primary;
+      font-weight: bold;
+      padding-left: $spacing-md;
+
+      @media (min-width: 992px) {
+        text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+      }
+
+      @media (max-width: 991px) {
+        padding-left: $spacing-lg;
+        margin-left: $spacing-sm;
+      }
+    }
+
+    .nav-list {
+      .nav-item {
+        color: $gray;
+        padding: $spacing-sm $spacing-md;
+        border-radius: 4px;
+        text-decoration: none;
+        display: block;
+        margin-bottom: $spacing-sm;
+
+        &:hover {
+          color: $text;
+          background: $hover;
+        }
+
+        &.active {
+          color: $primary;
+          background: $hover;
+          font-weight: bold;
+        }
+
+        @media (min-width: 992px) {
+          text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+          }
+          &.active {
+            background: rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
+    }
+  }
+
+  .song-section {
+    flex: 1;
+    padding: $spacing-md;
+    overflow-y: auto;
+    background: $background;
+    color: $text;
+    position: relative;
+    z-index: 10;
+
+    @media (min-width: 992px) {
+      background: transparent;
+    }
+
+    .section-header {
+      margin-top: $spacing-lg;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+
+      h2 {
+        margin: 0;
+        color: $text;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+
+        @media (min-width: 992px) {
+          text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+        }
+      }
+
+      .search-bar {
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: $spacing-sm;
+        background: $secondary;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        @media (min-width: 992px) {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        input {
+          width: 100%;
+          padding: $spacing-sm;
+          border: none;
+          border-radius: 4px;
+          background: $background;
+          color: $text;
+          font-size: 1rem;
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px $primary;
+          }
+
+          @media (min-width: 992px) {
+            background: rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+    }
+
+    .song-list {
+      margin-top: $spacing-md;
+      max-height: calc(100vh - 250px);
+      overflow-y: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .song-item {
+        background: $secondary;
+        color: $text;
+        padding: $spacing-sm;
+        margin-bottom: $spacing-sm;
+        border-radius: 4px;
+
+        &:hover {
+          background: $hover;
+        }
+
+        @media (min-width: 992px) {
+          background: rgba(255, 255, 255, 0.1);
+          text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
+    }
+  }
+
+  .hamburger-btn {
+    position: fixed;
+    top: $spacing-sm;
+    left: $spacing-sm;
+    z-index: 1100;
+    padding: $spacing-sm;
+    font-size: 1.2rem;
+    background: $primary;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: $text;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 992px) {
+      display: none;
+    }
+  }
+
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+
+    .loading-spinner {
+      border: 8px solid $secondary;
+      border-top: 8px solid $primary;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    }
+  }
+}

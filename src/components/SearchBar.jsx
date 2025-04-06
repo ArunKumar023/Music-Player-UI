@@ -1,20 +1,22 @@
-import React from 'react';
-import { FormControl } from 'react-bootstrap';
-
+import React, { useState } from 'react';
+import '../styles/SearchBar.scss';
 const SearchBar = ({ onSearch }) => {
-  const handleSearch = (e) => {
-    onSearch(e.target.value);
+  const [query, setQuery] = useState('');
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+    onSearch(value);
   };
 
   return (
-    <div className="search-bar">
-      <FormControl
-        type="text"
-        placeholder="Search Song, Artist"
-        onChange={handleSearch}
-        className="search-input"
-      />
-    </div>
+    <input
+      className="search-input"
+      type="text"
+      value={query}
+      onChange={handleChange}
+      placeholder="Search songs or artists..."
+    />
   );
 };
 

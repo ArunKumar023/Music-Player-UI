@@ -1,3 +1,15 @@
-$primary-color: #1db954;
-$dark-bg: #191414;
-$light-bg: #282828;
+$primary: #1db954;
+$secondary: #191414;
+$background: #121212;
+$text: #ffffff;
+$gray: #b3b3b3;
+$hover: #282828;
+
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+
+$spacing-xs: 0.25rem; // Add this if you need smaller spacing
+$text-light: #ffffff; // Already defined as $text, but you can adjust
+$gray-light: #b3b3b3; // Already defined as $gray, adjust if needed
+$primary-light: lighten($primary, 20%); // Derive a lighter version of $primary

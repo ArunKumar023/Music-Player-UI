@@ -1,18 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { FaEllipsisH, FaVolumeUp, FaBackward, FaForward, FaHeart } from 'react-icons/fa';
-import ColorThief from 'colorthief';
+import { FaEllipsisH, FaVolumeUp, FaBackward, FaForward, FaHeart, FaTimes, FaPlay, FaPause } from 'react-icons/fa';
+import '../styles/Player.scss';
 
 const Player = ({ currentSong, onPlayPause, onFavorite }) => {
   const audioRef = useRef(null);
-  const imgRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showFavoriteOption, setShowFavoriteOption] = useState(false);
-  const [backgroundGradient, setBackgroundGradient] = useState('linear-gradient(to right, #121212, #1a1a1a)');
-
-  const colorThief = new ColorThief();
+  const [isPlayerVisible, setIsPlayerVisible] = useState(true);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
@@ -49,31 +46,29 @@ const Player = ({ currentSong, onPlayPause, onFavorite }) => {
   };
 
   const handleFavoriteClick = () => {
-    onFavorite(currentSong);
+    onFavorite({
+      ...currentSong,
+      thumbnail: currentSong.coverUrl,
+    });
     setShowFavoriteOption(false);
   };
 
-  // Function to update background gradient based on cover image
-  const updateBackgroundGradient = () => {
-    if (imgRef.current && currentSong.coverUrl) {
-      imgRef.current.crossOrigin = "Anonymous";
-      imgRef.current.onload = () => {
-        try {
-          const colors = colorThief.getPalette(imgRef.current, 2);
-          const color1 = `rgb(${colors[0][0]}, ${colors[0][1]}, ${colors[0][2]})`;
-          const color2 = `rgb(${colors[1][0]}, ${colors[1][1]}, ${colors[1][2]})`;
-          setBackgroundGradient(`linear-gradient(to right, ${color1}, ${color2})`);
-        } catch (error) {
-          console.error('Error extracting colors:', error);
-          setBackgroundGradient('linear-gradient(to right, #121212, #1a1a1a)');
-        }
-      };
-      // Trigger load if image is already cached
-      if (imgRef.current.complete) {
-        imgRef.current.onload();
+  const handleClosePlayer = () => {
+    setIsPlayerVisible(false);
+  };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.play().catch(error => {
+          console.error('Playback failed:', error);
+          setIsPlaying(false);
+        });
+      } else {
+        audioRef.current.pause();
       }
     }
-  };
+  }, [isPlaying, currentSong]);
 
   useEffect(() => {
     const progress = (currentTime / duration) * 100 || 0;
@@ -84,35 +79,27 @@ const Player = ({ currentSong, onPlayPause, onFavorite }) => {
   }, [currentTime, duration]);
 
   useEffect(() => {
-    if (isPlaying) {
-      audioRef.current.play();
+    if (currentSong) {
+      setIsPlayerVisible(true);
     }
   }, [currentSong]);
-
-  // Update gradient when song changes
-  useEffect(() => {
-    updateBackgroundGradient();
-  }, [currentSong]);
-
-  // Apply gradient to app container
-  useEffect(() => {
-    const appContainer = document.querySelector('.app-container');
-    if (appContainer) {
-      appContainer.style.background = backgroundGradient;
-    }
-  }, [backgroundGradient]);
 
   return (
-    <div className="player-controls">
-      <div className="player">
-        {/* Hidden image for color extraction */}
-        <img
-          ref={imgRef}
-          src={currentSong.coverUrl}
-          alt="cover"
-          style={{ display: 'none' }}
-        />
-        
+    <div className={`playback-section ${!isPlayerVisible ? 'hidden' : ''}`}>
+      <button className="close-btn" onClick={handleClosePlayer}>
+        <FaTimes />
+      </button>
+      <div className="player-controls">
+        <div className="song-info">
+          <h1>{currentSong?.title || 'No Song Selected'}</h1>
+          <h2>{currentSong?.artistName || ''}</h2>
+        </div>
+        <div className="song-cover">
+          <img
+            src={currentSong?.coverUrl || 'placeholder.jpg'}
+            alt={currentSong?.title || 'No Song'}
+          />
+        </div>
         <div className="progress-section">
           <span className="current-time">{formatTime(currentTime)}</span>
           <input
@@ -125,14 +112,9 @@ const Player = ({ currentSong, onPlayPause, onFavorite }) => {
           />
           <span className="duration">{formatTime(duration)}</span>
         </div>
-
         <div className="controls">
           <div className="menu-container">
-            <Button
-              variant="link"
-              className="menu-btn"
-              onClick={handleMenuClick}
-            >
+            <Button variant="link" className="menu-btn" onClick={handleMenuClick}>
               <FaEllipsisH />
             </Button>
             {showFavoriteOption && (
@@ -149,9 +131,9 @@ const Player = ({ currentSong, onPlayPause, onFavorite }) => {
             <Button variant="link" className="prev-btn">
               <FaBackward />
             </Button>
-            <button className="play-btn" onClick={handlePlayPause}>
-              {isPlaying ? '⏸' : '▶'}
-            </button>
+            <Button variant="link" className="play-btn" onClick={handlePlayPause}>
+              {isPlaying ? <FaPause /> : <FaPlay />}
+            </Button>
             <Button variant="link" className="next-btn">
               <FaForward />
             </Button>
@@ -160,10 +142,9 @@ const Player = ({ currentSong, onPlayPause, onFavorite }) => {
             <FaVolumeUp />
           </Button>
         </div>
-
         <audio
           ref={audioRef}
-          src={currentSong.musicUrl}
+          src={currentSong?.musicUrl}
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
         />

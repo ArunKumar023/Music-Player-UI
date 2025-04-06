@@ -1,0 +1,13 @@
+@import 'variables';
+
+.song-list-container {
+  &.open {
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+  }
+
+  h2 {
+    margin-bottom: $spacing-md;
+    color: $text;
+  }
+}

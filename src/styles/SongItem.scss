@@ -1,0 +1,70 @@
+@import 'variables';
+
+.song-item {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm;
+  background: $secondary;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  position: relative;
+  color: $text;
+
+  &:hover {
+    background: $hover;
+    transform: translateX(5px);
+  }
+
+  &.active {
+    background: $primary-light;
+    border: 2px solid $primary;
+
+    h4, p {
+      color: $text;
+    }
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: $spacing-sm;
+  }
+
+  .song-details {
+    flex: 1;
+
+    h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: $text;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $gray;
+    }
+  }
+
+  .duration {
+    margin-left: $spacing-sm;
+    color: $gray;
+    font-size: 0.875rem;
+  }
+
+  .favorite-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: $gray;
+    cursor: pointer;
+    padding: $spacing-sm;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}

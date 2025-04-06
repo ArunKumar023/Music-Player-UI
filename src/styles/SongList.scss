@@ -1,0 +1,21 @@
+@import 'variables';
+
+.song-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: $spacing-sm;
+  color: $text;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  &.active {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+  }
+}

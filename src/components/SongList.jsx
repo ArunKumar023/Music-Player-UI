@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SongItem from './SongItem';
-
+import '../styles/SongList.scss';
 const SongList = ({ songs, onPlay, currentSong }) => {
   const [isLoading, setIsLoading] = useState(true);
 

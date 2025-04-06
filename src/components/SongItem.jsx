@@ -1,10 +1,16 @@
 import React from 'react';
+import '../styles/SongItem.scss';
 
 const SongItem = ({ song, onPlay, onFavorite, isActive, index }) => {
+  const handlePlayClick = (e) => {
+    e.stopPropagation();
+    onPlay(song);
+  };
+
   return (
     <div
       className={`song-item ${isActive ? 'active' : ''}`}
-      onClick={() => onPlay(song)}
+      onClick={handlePlayClick}
       style={{ '--index': index }}
     >
       <img src={song.thumbnail} alt={song.title} />
