@@ -56,7 +56,6 @@ const Layout = () => {
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
-      // Load recently played from sessionStorage
       const storedRecentlyPlayed = JSON.parse(sessionStorage.getItem('recentlyPlayed')) || [];
       const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
@@ -81,11 +80,10 @@ const Layout = () => {
   useEffect(() => {
     if (currentSong && isPlaying) {
       updateBackgroundGradient(currentSong.thumbnail);
-      // Update recently played in sessionStorage
       const updatedRecentlyPlayed = [
         currentSong,
         ...recentlyPlayed.filter(song => song.title !== currentSong.title),
-      ].slice(0, 10); // Keep only last 10 songs
+      ].slice(0, 10);
       sessionStorage.setItem('recentlyPlayed', JSON.stringify(updatedRecentlyPlayed));
       setRecentlyPlayed(updatedRecentlyPlayed);
     }
@@ -178,6 +176,32 @@ const Layout = () => {
     }, 500);
   };
 
+  const handleNext = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const currentIndex = songs.findIndex(song => song.title === currentSong.title);
+      const nextIndex = (currentIndex + 1) % songs.length; 
+      const nextSong = songs[nextIndex];
+      setCurrentSong(nextSong);
+      setIsPlaying(true);
+      updateBackgroundGradient(nextSong.thumbnail);
+      setIsLoading(false);
+    }, 500);
+  };
+
+  const handlePrevious = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const currentIndex = songs.findIndex(song => song.title === currentSong.title);
+      const prevIndex = (currentIndex - 1 + songs.length) % songs.length;
+      const prevSong = songs[prevIndex];
+      setCurrentSong(prevSong);
+      setIsPlaying(true);
+      updateBackgroundGradient(prevSong.thumbnail);
+      setIsLoading(false);
+    }, 500);
+  };
+
   return (
     <div className="app-container" style={{ background: backgroundGradient }}>
       <Button
@@ -238,6 +262,8 @@ const Layout = () => {
             }}
             onPlayPause={() => setIsPlaying(!isPlaying)}
             onFavorite={handleFavorite}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
             isLoading={isLoading}
           />
         )}

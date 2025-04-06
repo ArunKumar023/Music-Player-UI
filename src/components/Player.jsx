@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { FaEllipsisH, FaVolumeUp, FaBackward, FaForward, FaHeart, FaTimes, FaPlay, FaPause } from 'react-icons/fa';
 import '../styles/Player.scss';
 
-const Player = ({ currentSong, onPlayPause, onFavorite }) => {
+const Player = ({ currentSong, onPlayPause, onFavorite, onNext, onPrevious }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -128,13 +128,13 @@ const Player = ({ currentSong, onPlayPause, onFavorite }) => {
             )}
           </div>
           <div className="main-controls">
-            <Button variant="link" className="prev-btn">
+            <Button variant="link" className="prev-btn" onClick={onPrevious}>
               <FaBackward />
             </Button>
             <Button variant="link" className="play-btn" onClick={handlePlayPause}>
               {isPlaying ? <FaPause /> : <FaPlay />}
             </Button>
-            <Button variant="link" className="next-btn">
+            <Button variant="link" className="next-btn" onClick={onNext}>
               <FaForward />
             </Button>
           </div>
